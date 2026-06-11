@@ -53,8 +53,8 @@ public class Shooter extends SubsystemBase {
     public Shooter(HardwareMap hardwareMap, TelemetryData telemetry) {
         this.telemetry = telemetry;
 
-        shooterL = hardwareMap.get(DcMotorEx.class, "shooterL");
-        shooterR = hardwareMap.get(DcMotorEx.class, "shooterR");
+        shooterL = hardwareMap.get(DcMotorEx.class, "shooter_t");
+        shooterR = hardwareMap.get(DcMotorEx.class, "shooter_b");
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
         shooterL.setDirection(DcMotorSimple.Direction.REVERSE);

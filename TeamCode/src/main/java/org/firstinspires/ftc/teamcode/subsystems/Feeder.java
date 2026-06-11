@@ -12,7 +12,7 @@ public class Feeder extends SubsystemBase {
     private double feedSpeed = 0.0;
 
     public Feeder(HardwareMap hardwareMap) {
-        feeder = hardwareMap.get(DcMotorSimple.class, "feeder");
+        feeder = hardwareMap.get(DcMotorSimple.class, "index");
     }
 
     @Override
