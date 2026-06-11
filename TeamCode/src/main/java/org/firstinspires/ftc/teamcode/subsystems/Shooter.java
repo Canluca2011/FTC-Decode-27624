@@ -57,7 +57,7 @@ public class Shooter extends SubsystemBase {
         shooterR = hardwareMap.get(DcMotorEx.class, "shooter_b");
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        shooterL.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooterL.setDirection(DcMotorSimple.Direction.FORWARD);
         shooterR.setDirection(DcMotorSimple.Direction.FORWARD);
 
         shooterR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

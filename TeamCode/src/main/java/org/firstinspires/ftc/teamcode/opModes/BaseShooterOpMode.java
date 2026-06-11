@@ -53,7 +53,7 @@ public abstract class BaseShooterOpMode extends CommandOpMode {
     protected Intake mIntake;
     protected Feeder mFeeder;
     protected Vision mVision;
-    protected  Drive mDrive;
+    protected Drive mDrive;
     protected Led mLed;
     protected GamepadEx controller;
     protected int shouldInvertX, shouldInvertY;

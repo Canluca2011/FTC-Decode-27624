@@ -17,7 +17,7 @@ public class Feeder extends SubsystemBase {
 
     @Override
     public void periodic() {
-        feeder.setPower(-feedSpeed);
+        feeder.setPower(feedSpeed);
     }
 
     public void setSpeed(double speed) {

@@ -22,12 +22,12 @@ public class RunIntakeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        intake.setSpeed(1.0);
+        intake.setSpeed(-1.0);
     }
 
     @Override
     public void execute() {
-        intake.setSpeed(1.0);
+        intake.setSpeed(-1.0);
     }
 
     @Override
