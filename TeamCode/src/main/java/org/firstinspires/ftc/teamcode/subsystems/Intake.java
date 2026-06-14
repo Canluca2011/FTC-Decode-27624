@@ -17,7 +17,7 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        intake.setPower(intakeSpeed);
+        intake.setPower(-intakeSpeed);
     }
 
     public void setSpeed(double speed) {

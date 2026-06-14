@@ -22,12 +22,12 @@ public class RunFeederCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        feeder.setSpeed(1.0);
+        feeder.setSpeed(-1.0);
     }
 
     @Override
     public void execute() {
-        feeder.setSpeed(1.0);
+        feeder.setSpeed(-1.0);
     }
 
     @Override

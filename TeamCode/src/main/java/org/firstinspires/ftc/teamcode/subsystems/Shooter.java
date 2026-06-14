@@ -35,7 +35,7 @@ public class Shooter extends SubsystemBase {
     // retuning if you were previously tuning based on a different unit scale.
     public static double Kp = 0.008; //TODO
     public static double Kd = 0.0;
-    public static double Kf = 0.0005;
+    public static double Kf = 0.00055;
 
     // --- Voltage Compensation Config ---
     public static double VOLTAGE_SENSOR_POLLING_RATE = 40;

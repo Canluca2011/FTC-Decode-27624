@@ -18,9 +18,9 @@ public class AlignToTagCommand extends CommandBase {
     // PD steers toward the tag. kStatic is a feedforward that guarantees just enough power to break
     // static friction for the final degrees, so we can run a LOW Kp (no overshoot) and still reach
     // the target instead of stalling short of it.
-    private static final double Kp = 0.0175;      // lowered from 0.022 to kill the overshoot
-    private static final double Kd = 0.05;     // more damping for momentum + vision latency
-    private static final double kStatic = 0.025;  // min turn power to overcome friction near target
+    private static final double Kp = 0.012;      // lowered from 0.022 to kill the overshoot
+    private static final double Kd = 0.01;     // more damping for momentum + vision latency
+    private static final double kStatic = 0.01;  // min turn power to overcome friction near target
 
     // Inside this error band (tx units) we count as aligned and stop turning, so the robot settles
     // instead of hunting back and forth across the target.
@@ -28,7 +28,7 @@ public class AlignToTagCommand extends CommandBase {
 
     private static final double MAX_VISION_SPEED = 0.5;
 
-    private static final double SCAN_SPEED = 0.8;
+    private static final double SCAN_SPEED = 0.3;
 
     // State Variables
     private double previousTx = 0;

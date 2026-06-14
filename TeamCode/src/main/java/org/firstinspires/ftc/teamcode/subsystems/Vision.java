@@ -16,9 +16,9 @@ public class Vision extends SubsystemBase {
     private final TelemetryData telemetry;
 
     // --- Configuration Constants ---
-    private static final double CAMERA_LENS_HEIGHT = 0.433;
+    private static final double CAMERA_LENS_HEIGHT = 0.365;
     private static final double TARGET_HEIGHT = 29.25 * 0.0254;
-    private static final double CAMERA_MOUNT_ANGLE_DEGREES = 20.0;
+    private static final double CAMERA_MOUNT_ANGLE_DEGREES = 30.5;
 
     // Occlusion Handling:
     // If a ball blocks the camera, we keep the last 'tx' and 'distance' for this many ms.
@@ -63,8 +63,8 @@ public class Vision extends SubsystemBase {
                 // Strict ID mode
                 for (LLResultTypes.FiducialResult tag : fiducials) {
                     if (tag.getFiducialId() == targetTagId) {
-                        rawTx = tag.getTargetXDegrees();
-                        rawTy = tag.getTargetYDegrees();
+                        rawTx = -tag.getTargetYDegrees();
+                        rawTy = tag.getTargetXDegrees();
                         rawTa = tag.getTargetArea();
                         validFrameInput = true;
                         break;
@@ -72,8 +72,8 @@ public class Vision extends SubsystemBase {
                 }
             } else {
                 // Wildcard mode
-                rawTx = result.getTx();
-                rawTy = result.getTy();
+                rawTx = -result.getTy();
+                rawTy = result.getTx();
                 rawTa = result.getTa();
                 if (Math.abs(rawTx) > 0.001 || Math.abs(rawTy) > 0.001) {
                     validFrameInput = true;
