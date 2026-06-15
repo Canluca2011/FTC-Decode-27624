@@ -157,6 +157,13 @@ public class Vision extends SubsystemBase {
         limelight.pipelineSwitch(pipelineIndex);
     }
 
+    /**
+     * @return true if the target is visible in the current frame (no occlusion/cache).
+     */
+    public boolean isTargetVisibleNow() {
+        return isCurrentlyVisible;
+    }
+
     public void stop() {
         limelight.stop();
     }

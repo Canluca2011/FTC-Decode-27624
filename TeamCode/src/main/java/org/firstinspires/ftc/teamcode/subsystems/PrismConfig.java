@@ -99,6 +99,14 @@ public class PrismConfig {
     public static int Strip3_Period = 1000;
     public static Direction Strip3_Direction = Direction.FORWARD;
 
+    // ===== Indicator Servo PWM Constants =====
+    @IgnoreConfigurable
+    public static final double INDICATOR_RED_POS = 0.28;
+    @IgnoreConfigurable
+    public static final double INDICATOR_GREEN_POS = 0.480;
+    @IgnoreConfigurable
+    public static final double INDICATOR_ON_POS = 0.48;
+
     // ===== INDICATOR 1 (existing "led" servo) =====
     public static IndicatorMode Indicator1_Mode = IndicatorMode.STATUS;
     public static IndicatorStaticColor Indicator1_StaticColor = IndicatorStaticColor.RED;
