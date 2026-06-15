@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opModes;
 import static org.firstinspires.ftc.teamcode.subsystems.Led.RobotState.RGB_CYCLE;
 import static org.firstinspires.ftc.teamcode.subsystems.Led.RobotState.SHOOTER_IDLE;
 
+import com.bylazar.configurables.PanelsConfigurables;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
@@ -27,6 +28,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Feeder;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Led;
+import org.firstinspires.ftc.teamcode.subsystems.PrismConfig;
+import org.firstinspires.ftc.teamcode.subsystems.PrismSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.Vision;
 
@@ -52,6 +55,7 @@ public abstract class LongCycle extends CommandOpMode {
     private Vision mVision;
     private Drive mDrive;
     private Led mLed;
+    private PrismSubsystem mPrismSubsystem;
 
     // Opening paths (first two shots) + the reusable shuttle legs + the park.
     private PathChain Path1, Path2, Path3, PathOut, PathBack, PathPark;
@@ -211,8 +215,10 @@ public abstract class LongCycle extends CommandOpMode {
         mVision = new Vision(hardwareMap, telemetryData);
         mDrive = new Drive(follower);
         mLed = new Led(hardwareMap);
+        mPrismSubsystem = new PrismSubsystem(hardwareMap, telemetryData);
 
-        register(mShooter, mIntake, mFeeder, mVision, mDrive, mLed);
+        register(mShooter, mIntake, mFeeder, mVision, mDrive, mLed, mPrismSubsystem);
+        PanelsConfigurables.INSTANCE.refreshClass(PrismConfig.INSTANCE);
 
         buildPaths();
 

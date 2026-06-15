@@ -8,6 +8,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 public class Led extends SubsystemBase {
 
     private final Servo ledController;
+    private Servo led2Controller;
     private RobotState targetState = RobotState.OFF;
 
     // For animations
@@ -38,6 +39,11 @@ public class Led extends SubsystemBase {
 
     public Led(HardwareMap hardwareMap) {
         ledController = hardwareMap.get(Servo.class, "led");
+        try {
+            led2Controller = hardwareMap.get(Servo.class, "led2");
+        } catch (Exception e) {
+            led2Controller = null;
+        }
         setState(RobotState.RGB_CYCLE);
     }
 
@@ -58,49 +64,64 @@ public class Led extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (isAnimating) {
-            handleAnimation();
+        double indicator1Pwm;
+        if (PrismConfig.Indicator1_Mode == PrismConfig.IndicatorMode.STATIC) {
+            indicator1Pwm = pwmForStaticColor(PrismConfig.Indicator1_StaticColor);
+        } else if (isAnimating) {
+            indicator1Pwm = handleAnimation();
         } else {
-            // Standard static color logic
-            writeHardware(targetState.pwm);
+            indicator1Pwm = targetState.pwm;
+        }
+        writeHardware(indicator1Pwm);
+
+        if (led2Controller != null) {
+            double indicator2Pwm;
+            if (PrismConfig.Indicator2_Mode == PrismConfig.IndicatorMode.STATIC) {
+                indicator2Pwm = pwmForStaticColor(PrismConfig.Indicator2_StaticColor);
+            } else {
+                indicator2Pwm = indicator1Pwm;
+            }
+            led2Controller.setPosition(indicator2Pwm);
         }
     }
 
-    /**
-     * Handles dynamic LED updates for animation states.
-     */
-    private void handleAnimation() {
+    private double handleAnimation() {
         double time = timer.seconds();
 
         if (targetState == RobotState.RGB_CYCLE) {
             double minPwm = 0.28; // Red
             double maxPwm = 0.72; // Violet
-            double cycleTime = 4.0; // Increased time slightly since we now go up AND down
+            double cycleTime = 4.0;
 
-            // 1. Calculate progress from 0.0 to 1.0 repeats
             double input = (time % cycleTime) / cycleTime;
 
-            // 2. Convert to "Ping-Pong" (0.0 -> 1.0 -> 0.0)
             double phase;
             if (input <= 0.5) {
-                // First half: Ramp Up (0.0 to 1.0)
                 phase = input * 2.0;
             } else {
-                // Second half: Ramp Down (1.0 to 0.0)
                 phase = (1.0 - input) * 2.0;
             }
 
-            // 3. Map the ping-pong phase to the PWM range
-            double targetPwm = minPwm + (phase * (maxPwm - minPwm));
-
-            writeHardware(targetPwm);
+            return minPwm + (phase * (maxPwm - minPwm));
         }
+
+        return targetState.pwm;
     }
 
-    /**
-     * Internal helper to write to the servo only if the value has changed.
-     */
     private void writeHardware(double pwm) {
         ledController.setPosition(pwm);
+    }
+
+    private static double pwmForStaticColor(PrismConfig.IndicatorStaticColor color) {
+        switch (color) {
+            case RED:    return 0.28;
+            case ORANGE: return 0.36;
+            case SAGE:   return 0.444;
+            case GREEN:  return 0.480;
+            case BLUE:   return 0.611;
+            case VIOLET: return 0.72;
+            case WHITE:  return 1.0;
+            default:     return 0.0;
+        }
     }
 }
